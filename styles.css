@@ -4,56 +4,74 @@
   box-sizing: border-box;
 }
 
-body {
+header {
+  width: 100%;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-decoration: underline;
+  margin: 10px;
+}
+
+main {
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  height: calc(100vh - 20px - 3rem);
 }
 
-h1 {
-  margin: 2.5vh;
-  font-size: 4em;
-  text-decoration: underline;
-}
-
-.statusContainer {
+div.game-status {
+  font-size: 1.5rem;
   display: flex;
-  width: min(90vw, 75vh);
+  flex-direction: row;
+  gap: 10px;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5vh;
+  width: min(90vw, 75vh);
 }
 
-.restart {
-  border: 2px solid black;
-  border-radius: 0.3em;
-  padding: 0.2em 0.4em;
-  font-size: 2.5em;
-  cursor: pointer;
-}
-
-.text {
-  font-size: 2.5rem;
+div.text {
   text-decoration: underline;
 }
 
-.text:after {
+div.text:after {
   content: attr(data-text);
 }
 
-.board {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-content: center;
-  justify-items: center;
-  align-items: center;
-  align-content: center;
+@media (orientation: landscape) {
+  main {
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+  }
+  div.game-status {
+    flex-direction: column;
+    width: fit-content;
+  }
 }
 
-.appearIn {
-  animation: appearIn 250ms linear 0s forwards;
+button.restart {
+  border: 2px solid black;
+  border-radius: 0.3em;
+  padding: 0.2em 0.4em;
+  font-family: inherit;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+div.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+div.cell {
+  height: min(30vw, 25vh);
+  width: min(30vw, 25vh);
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .cell:first-child,
@@ -74,16 +92,6 @@ h1 {
 .cell:nth-child(8),
 .cell:nth-child(9) {
   border-bottom: none;
-}
-
-.cell {
-  height: min(30vw, 25vh);
-  width: min(30vw, 25vh);
-  border: 2px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
 }
 
 .cell.x::before,
@@ -143,6 +151,10 @@ h1 {
 .cell.zoom::before,
 .cell.zoom::after {
   animation: zoom 500ms linear 0s alternate infinite;
+}
+
+.appearIn {
+  animation: appearIn 250ms linear 0s forwards;
 }
 
 @keyframes appearIn {
